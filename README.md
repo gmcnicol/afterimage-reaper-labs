@@ -44,16 +44,24 @@ afterimage-reaper-labs/
 ├── AGENTS.md
 ├── README.md
 ├── docs/
+│   ├── agents/
 │   ├── experiment-template.md
 │   ├── roadmap-alignment.md
 │   └── reaper-api-notes.md
 ├── experiments/
-│   └── 000-field-to-automation-bridge/
+│   └── 001-import-afterimage-archive/
 │       └── experiment.md
+├── fixtures/
+│   └── archives/
+│       └── minimal-substrate/
+│           ├── manifest.lua
+│           └── media/
 ├── jsfx/
 │   └── README.md
 ├── scripts/
-│   └── README.md
+│   ├── README.md
+│   ├── afterimage_archive.lua
+│   └── import_afterimage_archive.lua
 └── templates/
     └── README.md
 ```
@@ -79,7 +87,11 @@ Valid decisions:
 
 ## First target
 
-The first useful capability is the Field -> Automation Bridge.
+The first useful capability is the archive import substrate.
+
+Given a small source-first archive folder, import one primary source video plus optional overlays, masks, and reference audio into LAB-001-owned Reaper tracks. If no cuts are provided, generate scene fallback analysis with FFmpeg, subdivide scenes into grid cuts, and mirror the substrate into Reaper markers/regions so later field experiments have real timeline targets.
+
+The next capability is the Field -> Automation Bridge.
 
 Given N generated values over time, write them to Reaper automation envelopes so that field generators can drive video parameters.
 
