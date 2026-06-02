@@ -5,9 +5,9 @@ M.generated_analysis_file = "analysis/generated-lab001.lua"
 M.ffmpeg_scene_threshold = 0.30
 
 local asset_roles = {
-  overlays = "AfImg LAB-001 Overlays",
-  masks = "AfImg LAB-001 Masks",
-  reference_audio = "AfImg LAB-001 Reference Audio",
+  overlays = "AfImg Overlays",
+  masks = "AfImg Masks",
+  reference_audio = "AfImg Reference Audio",
 }
 
 local asset_role_order = {
@@ -670,9 +670,9 @@ local function build_tracks(source, assets, analysis)
   local tracks = {
     {
       role = "source",
-      name = "AfImg LAB-001 Source",
+      name = "AfImg Source",
       items = {
-        media_item(source.id, source.name, "source", "AfImg LAB-001 Source", source.absolute_file, 0, analysis.source.duration),
+        media_item(source.id, source.name, "source", "AfImg Source", source.absolute_file, 0, analysis.source.duration),
       },
     },
   }

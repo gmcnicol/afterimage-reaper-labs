@@ -5,9 +5,10 @@ package.path = script_dir .. "/?.lua;" .. package.path
 local archive = require("afterimage_archive")
 
 local EXT_SECTION = "afterimage-reaper-labs"
-local OWNER_KEY = "lab001-owner"
-local OWNER_VALUE = "LAB-001"
-local NAME_PREFIX = "[AfImg LAB-001]"
+local OWNER_KEY = "afimg-owner"
+local OWNER_VALUE = "source-archive-import"
+local NAME_PREFIX = "[AfImg]"
+local LEGACY_NAME_PREFIX = "[AfImg LAB-001]"
 
 local function show(message)
   if reaper and reaper.ShowConsoleMsg then
@@ -89,7 +90,8 @@ end
 
 local function track_is_owned(track)
   local _, owner = reaper.GetSetMediaTrackInfo_String(track, "P_EXT:" .. OWNER_KEY, "", false)
-  return owner == OWNER_VALUE
+  local _, legacy_owner = reaper.GetSetMediaTrackInfo_String(track, "P_EXT:lab001-owner", "", false)
+  return owner == OWNER_VALUE or legacy_owner == "LAB-001"
 end
 
 local function delete_owned_tracks()
@@ -102,15 +104,16 @@ local function delete_owned_tracks()
 end
 
 local function delete_owned_markers()
-  local _, generated = reaper.GetProjExtState(0, EXT_SECTION, "lab001-generated-markers")
-  if generated ~= "1" then
+  local _, generated = reaper.GetProjExtState(0, EXT_SECTION, "afimg-generated-markers")
+  local _, legacy_generated = reaper.GetProjExtState(0, EXT_SECTION, "lab001-generated-markers")
+  if generated ~= "1" and legacy_generated ~= "1" then
     return
   end
 
   local _, marker_count, region_count = reaper.CountProjectMarkers(0)
   for index = marker_count + region_count - 1, 0, -1 do
     local ok, _, _, _, name = reaper.EnumProjectMarkers3(0, index)
-    if ok ~= 0 and starts_with(name, NAME_PREFIX) then
+    if ok ~= 0 and (starts_with(name, NAME_PREFIX) or starts_with(name, LEGACY_NAME_PREFIX)) then
       reaper.DeleteProjectMarkerByIndex(0, index)
     end
   end
@@ -198,15 +201,15 @@ local function import_plan(plan)
     end
   end
 
-  reaper.SetProjExtState(0, EXT_SECTION, "lab001-owner", OWNER_VALUE)
-  reaper.SetProjExtState(0, EXT_SECTION, "lab001-archive-id", tostring(plan.archive.id or ""))
-  reaper.SetProjExtState(0, EXT_SECTION, "lab001-generated-markers", "1")
-  reaper.SetProjExtState(0, EXT_SECTION, "lab001-marker-prefix", NAME_PREFIX)
-  reaper.SetProjExtState(0, EXT_SECTION, "lab001-analysis-method", tostring(plan.analysis.method or ""))
+  reaper.SetProjExtState(0, EXT_SECTION, "afimg-owner", OWNER_VALUE)
+  reaper.SetProjExtState(0, EXT_SECTION, "afimg-archive-id", tostring(plan.archive.id or ""))
+  reaper.SetProjExtState(0, EXT_SECTION, "afimg-generated-markers", "1")
+  reaper.SetProjExtState(0, EXT_SECTION, "afimg-marker-prefix", NAME_PREFIX)
+  reaper.SetProjExtState(0, EXT_SECTION, "afimg-analysis-method", tostring(plan.analysis.method or ""))
 
   reaper.PreventUIRefresh(-1)
   reaper.UpdateArrange()
-  reaper.Undo_EndBlock("Import LAB-001 Afterimage archive substrate", -1)
+  reaper.Undo_EndBlock("Import AfImg source archive substrate", -1)
 
   return imported_count, errors
 end

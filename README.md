@@ -89,7 +89,7 @@ Valid decisions:
 
 The first useful capability is the archive import substrate.
 
-Given a small source-first archive folder, import one primary source video plus optional overlays, masks, and reference audio into LAB-001-owned Reaper tracks. If no cuts are provided, generate scene fallback analysis with FFmpeg, subdivide scenes into grid cuts, and mirror the substrate into Reaper markers/regions so later field experiments have real timeline targets.
+Given a small source-first archive folder, import one primary source video plus optional overlays, masks, and reference audio into AfImg-owned Reaper tracks. If no cuts are provided, generate scene fallback analysis with FFmpeg, subdivide scenes into grid cuts, and mirror the substrate into Reaper markers/regions so later field experiments have real timeline targets.
 
 The next capability is the Field -> Automation Bridge.
 

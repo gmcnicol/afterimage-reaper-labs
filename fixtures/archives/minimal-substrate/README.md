@@ -16,9 +16,9 @@ This fixture is the smallest source-first archive shape currently expected by th
 
 ## Standard track names
 
-- `AfImg LAB-001 Source`
-- `AfImg LAB-001 Overlays`
-- `AfImg LAB-001 Masks`
-- `AfImg LAB-001 Reference Audio`
+- `AfImg Source`
+- `AfImg Overlays`
+- `AfImg Masks`
+- `AfImg Reference Audio`
 
 The importer places the source once, places optional supporting media at their explicit start times, and mirrors scenes/grid cuts into Reaper regions and markers for inspection.

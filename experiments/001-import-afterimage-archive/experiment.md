@@ -8,7 +8,7 @@ A source-first Lua archive manifest is enough for Reaper Labs to create a useful
 
 - `fixtures/archives/minimal-substrate/manifest.lua` defines the LAB-001 source-first contract.
 - `scripts/afterimage_archive.lua` validates manifests, loads provided analysis, generates FFmpeg scene fallback analysis, subdivides scenes into grid cuts, and produces an import plan.
-- `scripts/import_afterimage_archive.lua` runs inside REAPER, reads the current project grid when the manifest has no grid override, creates LAB-001-owned tracks, inserts source/supporting media, and mirrors scenes/cuts into regions/markers.
+- `scripts/import_afterimage_archive.lua` runs inside REAPER, reads the current project grid when the manifest has no grid override, creates AfImg-owned tracks, inserts source/supporting media, and mirrors scenes/cuts into regions/markers.
 - Generated analysis is written to `analysis/generated-lab001.lua` inside the archive folder.
 
 ## Evidence
